@@ -1,0 +1,100 @@
+// D5 Vendor Scoring — design language inherited from D3 supplier intranet,
+// re-skinned with amber (D5 brand accent).
+@use '@angular/material' as mat;
+
+html {
+  height: 100%;
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$yellow-palette,
+        tertiary: mat.$azure-palette,
+        theme-type: light,
+      ),
+      typography: Roboto,
+      density: 0,
+    )
+  );
+}
+
+:root {
+  --w2m-primary: #f59e0b;
+  --ink: #0f172a;
+  --muted: #64748b;
+  --lines: #e2e8f0;
+  --bg: #fafafa;
+  --d5-accent: #f59e0b;
+
+  --status-success: #10b981;
+  --status-success-bg: #d1fae5;
+  --status-success-fg: #065f46;
+  --status-warn: #f59e0b;
+  --status-warn-bg: #fef3c7;
+  --status-warn-fg: #92400e;
+  --status-error: #ef4444;
+  --status-error-bg: #fee2e2;
+  --status-error-fg: #991b1b;
+}
+
+body {
+  color-scheme: light;
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif;
+  margin: 0;
+  height: 100%;
+}
+
+// ── Tables ──────────────────────────────────────────────────────────────────
+.mat-mdc-table { background: transparent; }
+
+.mat-mdc-header-cell {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.06em !important;
+  color: #64748b !important;
+  border-bottom-color: #e2e8f0 !important;
+}
+
+.mat-mdc-cell {
+  font-size: 13px;
+  color: #0f172a !important;
+  border-bottom-color: #e2e8f0 !important;
+}
+
+.mat-mdc-row:last-child .mat-mdc-cell { border-bottom: none !important; }
+
+// ── Cards ───────────────────────────────────────────────────────────────────
+.mat-mdc-card {
+  --mdc-outlined-card-container-shape: 12px;
+  --mdc-elevated-card-container-shape: 12px;
+  border-radius: 12px !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.06) !important;
+}
+
+.mat-mdc-card-content { padding: 24px !important; }
+
+// ── Buttons ─────────────────────────────────────────────────────────────────
+.mat-mdc-button,
+.mat-mdc-unelevated-button,
+.mat-mdc-outlined-button,
+.mat-mdc-raised-button {
+  --mdc-filled-button-container-shape: 8px;
+  --mdc-outlined-button-container-shape: 8px;
+  --mdc-text-button-container-shape: 8px;
+  border-radius: 8px !important;
+  letter-spacing: 0.01em !important;
+}
+
+// ── Sidenav ─────────────────────────────────────────────────────────────────
+mat-sidenav.sidenav {
+  background: #f8fafc;
+  border-right: 1px solid #e2e8f0;
+}
+
+// ── Snackbar ────────────────────────────────────────────────────────────────
+.mat-mdc-snack-bar-container {
+  --mdc-snackbar-container-color: #0f172a !important;
+  --mdc-snackbar-supporting-text-color: #f8fafc !important;
+}

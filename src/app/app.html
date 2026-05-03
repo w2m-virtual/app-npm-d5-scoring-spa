@@ -1,0 +1,35 @@
+<mat-sidenav-container class="shell">
+
+  <mat-sidenav mode="side" opened class="sidenav">
+    <div class="brand">
+      <span class="brand-w2m">W2M</span>
+      <span class="brand-sep">·</span>
+      <span class="brand-d5">D5</span>
+      <span class="brand-tag">Scoring</span>
+    </div>
+    <nav class="nav-links">
+      <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">
+        <mat-icon>dashboard</mat-icon>
+        <span>Dashboard</span>
+      </a>
+      <a class="nav-link" routerLink="/suppliers" routerLinkActive="active">
+        <mat-icon>leaderboard</mat-icon>
+        <span>Suppliers</span>
+      </a>
+    </nav>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <header class="topbar">
+      <span class="topbar-title">{{ title() }}</span>
+      <span class="topbar-spacer"></span>
+      <button matIconButton aria-label="Refrescar" (click)="refresh()">
+        <mat-icon>refresh</mat-icon>
+      </button>
+    </header>
+    <main class="page">
+      <router-outlet />
+    </main>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

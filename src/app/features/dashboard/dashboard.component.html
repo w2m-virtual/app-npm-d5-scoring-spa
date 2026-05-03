@@ -1,0 +1,50 @@
+<div class="page-header">
+  <h2>Dashboard</h2>
+  <div class="meta">Vendor scoring · auto-refresh 15s</div>
+</div>
+
+@if (loading()) {
+  <div class="loading">
+    <mat-spinner diameter="36"></mat-spinner>
+    <span>Cargando KPIs...</span>
+  </div>
+} @else if (error()) {
+  <div class="error-card">
+    <mat-icon>error_outline</mat-icon>
+    <div>
+      <strong>No se pudieron cargar los datos.</strong>
+      <div class="muted">{{ error() }}</div>
+    </div>
+  </div>
+} @else if (empty()) {
+  <div class="empty">
+    <mat-icon>inbox</mat-icon>
+    <p>Aún no hay datos de scoring. Procesa reservas en el flujo principal.</p>
+  </div>
+} @else {
+  <div class="kpi-grid">
+    <mat-card>
+      <div class="kpi-label">Total suppliers</div>
+      <div class="kpi-value">{{ totalSuppliers() }}</div>
+      <div class="kpi-sub">scored</div>
+    </mat-card>
+
+    <mat-card>
+      <div class="kpi-label">Bookings procesadas</div>
+      <div class="kpi-value">{{ totalAttempts() }}</div>
+      <div class="kpi-sub">total intentos</div>
+    </mat-card>
+
+    <mat-card>
+      <div class="kpi-label">Tasa confirmación</div>
+      <div class="kpi-value">{{ confirmRatePct() }}<span class="unit">%</span></div>
+      <div class="kpi-sub">{{ totalConfirmed() }} / {{ totalAttempts() }}</div>
+    </mat-card>
+
+    <mat-card>
+      <div class="kpi-label">Score promedio</div>
+      <div class="kpi-value">{{ avgScore() }}</div>
+      <div class="kpi-sub">media simple</div>
+    </mat-card>
+  </div>
+}

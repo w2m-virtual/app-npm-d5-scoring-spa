@@ -1,0 +1,102 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.shell {
+  height: 100%;
+  --mat-sidenav-container-background-color: #f8fafc;
+  --mat-sidenav-container-divider-color: #e2e8f0;
+}
+
+.sidenav {
+  width: 240px;
+}
+
+.brand {
+  padding: 20px 16px 14px;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  font-family: ui-monospace, 'Cascadia Code', Menlo, Consolas, monospace;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  .brand-w2m { color: #0f172a; }
+  .brand-sep { color: #cbd5e1; }
+  .brand-d5  { color: var(--d5-accent, #f59e0b); }
+  .brand-tag {
+    color: #64748b;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-left: 4px;
+  }
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  padding: 0 8px;
+  gap: 2px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  color: #64748b;
+  text-decoration: none;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.1s, color 0.1s;
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+  }
+
+  &.active {
+    background: var(--d5-accent, #f59e0b);
+    color: #fff;
+  }
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 64px;
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  padding: 0 32px;
+}
+
+.topbar-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+  letter-spacing: 0.02em;
+}
+
+.topbar-spacer {
+  flex: 1;
+}
+
+.page {
+  padding: 28px 32px;
+}

@@ -1,0 +1,103 @@
+<div class="page-header">
+  <h2>Suppliers</h2>
+  <div class="meta">{{ rows().length }} supplier{{ rows().length !== 1 ? 's' : '' }} · auto-refresh 15s</div>
+</div>
+
+@if (loading()) {
+  <div class="loading">
+    <mat-spinner diameter="36"></mat-spinner>
+    <span>Cargando scoring...</span>
+  </div>
+} @else if (empty()) {
+  <div class="empty">
+    <mat-icon>inbox</mat-icon>
+    <p>Aún no hay suppliers con score. Procesa reservas para generar datos.</p>
+  </div>
+} @else {
+  <table mat-table [dataSource]="rows()" class="scoring-table">
+
+    <ng-container matColumnDef="supplierId">
+      <th mat-header-cell *matHeaderCellDef>Supplier ID</th>
+      <td mat-cell *matCellDef="let row">
+        <span class="mono">{{ truncate(row.supplierId) }}</span>
+        <button matIconButton class="copy-btn" aria-label="Copiar ID" (click)="copyId(row.supplierId, $event)">
+          <mat-icon>content_copy</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="totalAttempts">
+      <th mat-header-cell *matHeaderCellDef>Total intentos</th>
+      <td mat-cell *matCellDef="let row">{{ row.totalAttempts }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="confirmed">
+      <th mat-header-cell *matHeaderCellDef>Confirmadas</th>
+      <td mat-cell *matCellDef="let row">{{ row.confirmed }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="rejected">
+      <th mat-header-cell *matHeaderCellDef>Rechazadas</th>
+      <td mat-cell *matCellDef="let row">{{ row.rejected }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="rejectRate">
+      <th mat-header-cell *matHeaderCellDef>Tasa rechazo</th>
+      <td mat-cell *matCellDef="let row">
+        <span class="badge" [class]="'lvl-' + rejectLevel(row.rejectRatePct)">
+          {{ row.rejectRatePct }}%
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="score">
+      <th mat-header-cell *matHeaderCellDef>Score</th>
+      <td mat-cell *matCellDef="let row">
+        <span class="badge" [class]="'lvl-' + scoreLevel(row.score)">{{ row.score }}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastUpdatedAt">
+      <th mat-header-cell *matHeaderCellDef>Última actualización</th>
+      <td mat-cell *matCellDef="let row" class="muted">{{ relativeTime(row.lastUpdatedAt) }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let row" [attr.colspan]="columns.length" class="expanded-cell">
+        @if (isExpanded(row)) {
+          <div class="detail">
+            <div class="detail-title">Detalle de {{ truncate(row.supplierId) }}</div>
+            <div class="bars">
+              <div class="bar-row">
+                <span class="bar-label">Confirmadas</span>
+                <div class="bar-track">
+                  <div class="bar-fill ok" [style.width.%]="pct(row.confirmed, row.totalAttempts)"></div>
+                </div>
+                <span class="bar-val">{{ row.confirmed }} ({{ pct(row.confirmed, row.totalAttempts) }}%)</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">Rechazadas</span>
+                <div class="bar-track">
+                  <div class="bar-fill bad" [style.width.%]="pct(row.rejected, row.totalAttempts)"></div>
+                </div>
+                <span class="bar-val">{{ row.rejected }} ({{ pct(row.rejected, row.totalAttempts) }}%)</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">Score</span>
+                <div class="bar-track">
+                  <div class="bar-fill score" [class]="'lvl-' + scoreLevel(row.score)" [style.width.%]="row.score"></div>
+                </div>
+                <span class="bar-val">{{ row.score }} / 100</span>
+              </div>
+            </div>
+            <div class="detail-meta">supplier_id: <span class="mono">{{ row.supplierId }}</span></div>
+          </div>
+        }
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns;" class="clickable-row" (click)="toggle(row)"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+  </table>
+}
