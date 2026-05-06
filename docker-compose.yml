@@ -1,0 +1,6 @@
+services:
+  app-npm-d5-scoring-spa:
+    build: .
+    ports:
+      - "4204:80"
+    restart: unless-stopped
